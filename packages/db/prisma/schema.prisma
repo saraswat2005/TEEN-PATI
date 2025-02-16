@@ -28,7 +28,8 @@ model User {
   verified  Boolean  @default(false)
   walletId  String?    @unique @db.ObjectId
   wallet    Wallet?    @relation(fields: [walletId], references: [id])
-  bets      Bet[]     
+  bets      Bet[]
+  messages  Message[]     
 }
 
 // Wallet model
@@ -76,4 +77,18 @@ model Bet {
   status     BetStatus  @default(PENDING)
   // Optional: If you want to record the outcome (e.g., winnings), you can add:
   outcome    Float?     // This could represent the amount won (or negative for losses)
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  senderId  String   @db.ObjectId // References User.id
+  createdAt DateTime @default(now())
+  updatedAt DateTime? // Remove @updatedAt for MongoDB
+
+  // For future categorization (e.g., global, group, DM)
+  channel   String?  @default("global")
+
+  // Relationship to User
+  sender    User     @relation(fields: [senderId], references: [id])
 }
