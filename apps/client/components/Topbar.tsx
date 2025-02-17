@@ -156,7 +156,7 @@ export default function Topbar() {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:pl-[470px] lg:pl-0 md:flex md:overflow-auto lg:flex justify-center items-center gap-x-10 text-sm whitespace-nowrap">
+        <div className="hidden lg:pl-0 md:flex md:overflow-auto lg:flex justify-center items-center gap-x-10 text-sm whitespace-nowrap">
           <Link
             href="/live-events"
             className="flex items-center gap-x-2 hover:text-amber-400"
