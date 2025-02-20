@@ -10,6 +10,7 @@ export function SignupPage() {
     password: ''
   });
   const [loading, setLoading] = useState(false);
+  const backendUrl = process.env.BACKEND_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -23,7 +24,7 @@ export function SignupPage() {
     console.log(formData)
     try {
       setLoading(true);
-      const response = await axios.post(`${process.env.BACKEND_URL}/api/signup`, {
+      const response = await axios.post(`${backendUrl}/api/signup`, {
         body: JSON.stringify(formData)
       });
 
@@ -84,7 +85,7 @@ export function SignupPage() {
             type="submit"
             className="w-full bg-[#ffb900] text-white p-2 rounded-lg hover:bg-yellow-600"
           >
-            Sign Up
+            {loading ? 'Signing up...' : 'Sign Up'}
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-400">
