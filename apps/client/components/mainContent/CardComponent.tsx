@@ -28,18 +28,16 @@ const CardComponent = () => {
     },
   ];
 
-  // Auto-rotate the carousel every 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
     }, 2000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval); 
   }, [cards.length]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center gap-16 p-14 bg-black">
-      {/* Carousel for small screens */}
       <div className="md:hidden w-full overflow-hidden relative">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -53,7 +51,6 @@ const CardComponent = () => {
         </div>
       </div>
 
-      {/* Regular layout for medium and larger screens */}
       <div className="hidden md:flex justify-center gap-16 w-full">
         {cards.map((card) => (
           <div key={card.id} className="w-full">
