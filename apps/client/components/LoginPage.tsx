@@ -37,7 +37,7 @@ export default function LoginPage() {
   
   export function SignupPage() {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-900 text-white p-4">
+      <div className="flex items-center justify-center bg-gray-900 text-white p-4">
         <div className="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold text-center mb-4">Sign Up</h2>
           <form className="space-y-4">
