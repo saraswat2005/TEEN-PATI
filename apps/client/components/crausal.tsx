@@ -1,143 +1,85 @@
-"use client";
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-const images = [
-  "/sports1.png",
-  "/sports1.png",
-  "/sports1.png",
-  "/sports1.png",
-  "/sports1.png",
-];
+export const ImageCarousel = ({ images }: { images: { src: string; link: string }[] }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSliding, setIsSliding] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-export default function Carousel() {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [transitionEnabled, setTransitionEnabled] = useState(true);
-
-  // Add cloned items for infinite loop effect
-  const items = [images[images.length - 1], ...images, images[0]];
-
-  // Auto-advance the carousel
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+    startAutoScroll();
+    return () => stopAutoScroll();
+  }, []);
 
-  const handleNext = () => {
-    if (currentIndex === items.length - 1) {
-      jumpTo(1); // Jump to the first real image
-    } else {
-      setCurrentIndex((prev) => prev + 1);
-    }
+  const startAutoScroll = () => {
+    stopAutoScroll(); 
+    intervalRef.current = setInterval(() => {
+      nextImage();
+    }, 1500);
   };
 
-  const handlePrev = () => {
-    if (currentIndex === 0) {
-      jumpTo(items.length - 2); // Jump to the last real image
-    } else {
-      setCurrentIndex((prev) => prev - 1);
-    }
+  const stopAutoScroll = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
   };
 
-  const jumpTo = (index: number) => {
-    setTransitionEnabled(false); // Disable transition for instant jump
-    setCurrentIndex(index);
-    setTimeout(() => {
-      setTransitionEnabled(true); // Re-enable transition after jump
-    }, 10);
+  const nextImage = () => {
+    if (isSliding) return;
+    setIsSliding(true);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setTimeout(() => setIsSliding(false), 500);
   };
 
-  const getTransform = () => {
-    return `translateX(-${currentIndex * 100}%)`;
-  };
-
-  const actualIndex = () => {
-    if (currentIndex === 0) return images.length - 1; // Last image
-    if (currentIndex === items.length - 1) return 0; // First image
-    return currentIndex - 1; // Current image
+  const prevImage = () => {
+    if (isSliding) return;
+    setIsSliding(true);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+    setTimeout(() => setIsSliding(false), 500);
   };
 
   return (
-    <div className="relative overflow-hidden my-12 w-full mt-20 md:mt-10 lg:mt-10">
-      {/* Carousel Container */}
-      <div className="relative h-48 sm:h-64 md:h-80 lg:h-96">
+    <div
+      className="relative w-full h-64 flex items-center justify-center px-10 py-6 mt-10"
+      onMouseEnter={stopAutoScroll}
+      onMouseLeave={startAutoScroll}
+    >
+      <button
+        className="absolute left-10 bg-gray-900 p-3 rounded-full text-white shadow-lg z-10"
+        onClick={prevImage}
+      >
+        <ChevronLeft size={28} />
+      </button>
+
+      <div className="relative h-80 w-full overflow-hidden rounded-xl shadow-md">
         <div
-          className={`flex ${
-            transitionEnabled ? "transition-transform duration-500" : ""
-          } ease-in-out`}
-          style={{ transform: getTransform() }}
-          role="list"
+          className="flex w-full h-full transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {items.map((src, index) => (
-            <div
+          {images.map((image, index) => (
+            <a
               key={index}
-              className="min-w-full px-2 flex-shrink-0"
-              role="listitem"
+              href={image.link}
+              rel="noopener noreferrer"
+              className="w-full h-full flex-shrink-0"
+              style={{ minWidth: "100%" }}
             >
-              <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96">
-                <Image
-                  src={src as string}
-                  alt={`Slide ${index}`}
-                  fill
-                  className="rounded-lg object-cover"
-                  priority={index === 1}
-                />
-              </div>
-            </div>
+              <img
+                src={image.src}
+                alt={`carousel-${index}`}
+                className="w-full h-full object-cover"
+              />
+            </a>
           ))}
         </div>
       </div>
 
-      {/* Navigation Dots */}
-      <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
-              actualIndex() === index ? "bg-white" : "bg-white/50"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-            onClick={() => setCurrentIndex(index + 1)}
-          />
-        ))}
-      </div>
-
-      {/* Previous Button */}
       <button
-        type="button"
-        className="absolute top-1/2 left-2 -translate-y-1/2 z-30 p-1 sm:p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
-        onClick={handlePrev}
-        aria-label="Previous slide"
+        className="absolute right-10 bg-gray-900 p-3 rounded-full text-white shadow-lg z-10"
+        onClick={nextImage}
       >
-        <svg
-          className="w-4 h-4 sm:w-6 sm:h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      {/* Next Button */}
-      <button
-        type="button"
-        className="absolute top-1/2 right-2 -translate-y-1/2 z-30 p-1 sm:p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
-        onClick={handleNext}
-        aria-label="Next slide"
-      >
-        <svg
-          className="w-4 h-4 sm:w-6 sm:h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
+        <ChevronRight size={28} />
       </button>
     </div>
   );
-}
+};
