@@ -3,6 +3,7 @@ import CardComponent from "./CardComponent";
 import GameCategories from "./GameCategories";
 import Matches from "./Hotmatches";
 
+
 const games6 = [
   "Promotions",
   "BBL",
@@ -22,16 +23,18 @@ const games8 = [
   "Slots",
 ];
 
+
 export const MainContent = () => {
-    return (
-      <div className="flex flex-col h-screen overflow-x-auto">
-        <CardComponent/>
-        <GameCategories games={games6}/>
-        <Matches Img="allLive.png" leftText="Hot Matches" rightText="Upcoming Events"/>
-        <GameCategories games={games8}/>
-        <Matches Img="cricket.png" leftText="Cricket" rightText="All Matches"/>
-        <Matches Img="football.png" leftText="Football" rightText="All Matches"/>
-        <Footer/>
-      </div>
-    );
+  return (
+    <div className="flex flex-col h-screen overflow-x-auto">
+      <CardComponent />
+      <GameCategories games={games6} />
+      <Matches Img="allLive.png" leftText="Hot Matches" rightText="Upcoming Events" />
+      <GameCategories games={games8} />
+      <Matches Img="cricket.png" leftText="Cricket" rightText="All Matches" />
+      <Matches Img="football.png" leftText="Football" rightText="All Matches" />
+      <Footer />
+    </div>
+  );
 };
+

@@ -1,23 +1,21 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import Topbar from "../components/Topbar";
-import Sidebar from "../components/sidebar/Sidebar";
-import Hotmatches from "../components/mainContent/Hotmatches";
-import Footer from "../components/mainContent/Footer";
-import SidebarAndMainContent from "../components/sidebar/Sidebar";
 import { MainContent } from "../components/mainContent/MainContent";
-// import { login , register } from "../actions/auth";
+import { Sidebar } from "../components/sidebar/Sidebar";
 
 const Page = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
-      <Topbar />
-      <div className="grid bg-black grid-cols-1 md:grid-cols-[30%_70%] lg:grid-cols-[20%_80%]">
-        <Sidebar />
+      <Topbar onMenuClick={() => setSidebarOpen(!isSidebarOpen)} />
+      <div className="grid bg-black grid-cols-1 lg:grid-cols-[300px_auto] relative">
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
         <MainContent />
       </div>
     </>
   );
 };
 
-export default Page
+export default Page;
