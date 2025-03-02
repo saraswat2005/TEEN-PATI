@@ -37,7 +37,7 @@ const CardComponent = () => {
   }, [cards.length]);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center gap-16 p-14 bg-black">
+    <div className="flex flex-col md:flex-row justify-center gap-16 p-14 bg-[#eff1f3] text-black">
       <div className="md:hidden w-full overflow-hidden relative">
         <div
           className="flex transition-transform duration-500 ease-in-out"

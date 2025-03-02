@@ -1,7 +1,7 @@
 import Footer from "./Footer";
 import CardComponent from "./CardComponent";
 import GameCategories from "./GameCategories";
-import Matches from "./Hotmatches";
+import Matches, { MatchesForWhite } from "./Hotmatches";
 
 const games6 = [
   "Promotions",
@@ -35,17 +35,17 @@ const images = [
 
 export const MainContent = () => {
   return (
-    <div className="flex flex-col h-screen overflow-x-auto">
+    <div className="flex flex-col h-screen overflow-x-auto bg-[#eff1f3]">
       <CardComponent />
       <GameCategories games={games6} />
-      <Matches
+      <MatchesForWhite
         Img="/allLive.png"
         leftText="Hot Matches"
         rightText="View All"
         images={images}
       />
       <GameCategories games={games8} />
-      <Matches
+      <MatchesForWhite
         Img="/allLive.png"
         leftText="Hot Matches"
         rightText="View All"
