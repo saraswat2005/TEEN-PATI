@@ -27,7 +27,7 @@ export const Sidebar = ({ isOpen, onClose }: any) => {
         className="lg:hidden absolute top-4 left-4 text-white p-2 rounded"
         onClick={onClose}
       >
-        <X size={24} />
+        <X size={24} color="black"/>
       </button>
       <nav className="space-y-1 mt-10 lg:mt-0">
         {pages.map(({ name, path, icon: Icon }) => (
