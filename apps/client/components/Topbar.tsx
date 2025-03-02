@@ -4,16 +4,23 @@ import { CastIcon, Home, Menu, ShipWheel, User2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Topbar({ onMenuClick }: any) {
+type TopbarProps = {
+  onMenuClick?: () => void;
+  menu?: boolean; // Making menu optional
+};
+
+export default function Topbar({ onMenuClick, menu }: TopbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
       <div className="fixed top-0 left-0 w-full bg-black flex justify-between items-center px-4 py-4 border-b border-gray-800 text-white z-50">
         <div className="flex items-center">
+        {menu && (
           <button className="lg:hidden text-white p-2" onClick={onMenuClick}>
             <Menu size={24} />
           </button>
+        )}
           <Link
             href="/"
             className="text-2xl md:text-3xl text-amber-400 cursor-pointer flex md:mx-11"
@@ -90,13 +97,14 @@ export default function Topbar({ onMenuClick }: any) {
           <User2 />
           <span className="text-xs">Profile</span>
         </Link>
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white">
-          <Menu className="h-10 w-10" />
-        </button>
+        <Link href="/menu" className="flex flex-col items-center text-white hover:text-amber-400">
+          <Menu className="h-7 w-7" />
+          <span className="text-xs">Menu</span>
+        </Link>
       </div>
 
       {isMenuOpen && (
-        <div className="fixed bottom-16 left-0 w-full bg-black text-white flex flex-col p-4 space-y-4 z-40">
+        <div className="fixed bottom-16 left-0 w-full bg-black text-white flex flex-col p-4 space-y-4 z-110">
           <Link href="/live-events" className="flex items-center gap-x-2 hover:text-amber-400">
             <img src="/LiveEvents.png" alt="Live Events" className="w-5 h-5" />
             <span>Live Events</span>
