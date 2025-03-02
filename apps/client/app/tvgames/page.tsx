@@ -8,8 +8,7 @@ import { ImageCarousel } from "../../components/crausal";
 import { constants } from "buffer";
 import { TvGamesSidebar } from "./tvgamesSidebar";
 import { useRouter } from "next/navigation";
-
-
+import Matches from "../../components/mainContent/Hotmatches";
 
 const Page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -17,8 +16,11 @@ const Page = () => {
     <>
       <Topbar onMenuClick={() => setSidebarOpen(!isSidebarOpen)} menu={true} />
       <div className="grid bg-black grid-cols-1 lg:grid-cols-[300px_auto] relative">
-        <TvGamesSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <TvGamesMainContent/>
+        <TvGamesSidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+        <TvGamesMainContent />
       </div>
     </>
   );
@@ -26,15 +28,57 @@ const Page = () => {
 
 export default Page;
 
+const images = [
+  {
+    src: "/gamesImages/Thumbnail_0011_Casino-Meter.png",
+    link: "/match/1",
+    name: "Casino Meter",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0013_Teen-Patti-20-20.png",
+    link: "/match/3",
+    name: "Teen Patti 20-20",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0012_Open-Teen-Patti.png",
+    link: "/match/2",
+    name: "Open Teen Patti",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0013_Teen-Patti-20-20.png",
+    link: "/match/3",
+    name: "Teen Patti 20-20",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0014_Casino-Queen.png",
+    link: "/match/4",
+    name: "Casino Queen",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0015_32-Cards-A.png",
+    link: "/match/5",
+    name: "32 Cards A",
+  },
+  {
+    src: "/gamesImages/Thumbnail_0015_32-Cards-A.png",
+    link: "/match/5",
+    name: "32 Cards A",
+  },
+];
 
 const TvGamesMainContent = () => {
   return (
     <div className="flex flex-col overflow-x-auto bg-black h-screen">
-      <InstantGamesSearchBar/>
+      <InstantGamesSearchBar />
+      <Matches
+        Img="/allLive.png"
+        leftText="Popular Games"
+        rightText="View All"
+        images={images}
+      />
     </div>
   );
 };
-
 
 function InstantGamesSearchBar() {
   return (
@@ -58,5 +102,3 @@ function InstantGamesSearchBar() {
     </div>
   );
 }
-
-

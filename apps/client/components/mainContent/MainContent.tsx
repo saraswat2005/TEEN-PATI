@@ -3,7 +3,6 @@ import CardComponent from "./CardComponent";
 import GameCategories from "./GameCategories";
 import Matches from "./Hotmatches";
 
-
 const games6 = [
   "Promotions",
   "BBL",
@@ -23,18 +22,36 @@ const games8 = [
   "Slots",
 ];
 
+const images = [
+  { src: "/gamesImages/Thumbnail_0001_Super-Over-.png", link: "/match/1", name: "Super Over" },
+  { src: "/gamesImages/Thumbnail_0002_Race-20.png", link: "/match/2", name: "Race 20" },
+  { src: "/gamesImages/Thumbnail_0004_Andar-Bahar.png", link: "/match/4", name: "Andar Bahar" },
+  { src: "/gamesImages/Thumbnail_0003_5-Five-Cricket.png", link: "/match/3", name: "5-Five Cricket" },
+  { src: "/gamesImages/Thumbnail_0004_Andar-Bahar.png", link: "/match/4", name: "Andar Bahar" },
+  { src: "/gamesImages/Thumbnail_0005_20-20-Drangon-Tiger.png", link: "/match/5", name: "20-20 Dragon Tiger" },
+  { src: "/gamesImages/Thumbnail_0004_Andar-Bahar.png", link: "/match/4", name: "Andar Bahar" },
+]
+
 
 export const MainContent = () => {
   return (
     <div className="flex flex-col h-screen overflow-x-auto">
       <CardComponent />
       <GameCategories games={games6} />
-      <Matches Img="allLive.png" leftText="Hot Matches" rightText="Upcoming Events" />
+      <Matches
+        Img="/allLive.png"
+        leftText="Hot Matches"
+        rightText="View All"
+        images={images}
+      />
       <GameCategories games={games8} />
-      <Matches Img="cricket.png" leftText="Cricket" rightText="All Matches" />
-      <Matches Img="football.png" leftText="Football" rightText="All Matches" />
+      <Matches
+        Img="/allLive.png"
+        leftText="Hot Matches"
+        rightText="View All"
+        images={images}
+      />
       <Footer />
     </div>
   );
 };
-
