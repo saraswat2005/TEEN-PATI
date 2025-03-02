@@ -8,7 +8,7 @@ export const Sidebar = ({ isOpen, onClose }: any) => {
   const router = useRouter();
   const pages = [
     { name: "All Live", path: "/allLive", imagePath: "allLive.png" },
-    { name: "Favorites", path: "/", imagePath: "favoriates.png" },
+    { name: "Favorites", path: "/favorites", imagePath: "favoriates.png" },
     { name: "Top Parleys", path: "/topparleys", imagePath: "topParleys.png" },
     { name: "Promotions", path: "/promotions", imagePath: "promotions.png" },
     { name: "Cricket", path: "/cricket", imagePath: "cricket.png" },
