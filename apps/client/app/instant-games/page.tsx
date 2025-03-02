@@ -14,7 +14,7 @@ const Page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
-      <Topbar onMenuClick={() => setSidebarOpen(!isSidebarOpen)} />
+      <Topbar onMenuClick={() => setSidebarOpen(!isSidebarOpen)} menu={true} />
       <div className="grid bg-black grid-cols-1 lg:grid-cols-[300px_auto] relative">
         <InstantGamesSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
         <InstantGamesMainContent/>

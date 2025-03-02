@@ -3,21 +3,23 @@
 import { useRouter } from "next/navigation";
 import { X, Home, Gift, Star, Flame, Rocket, Dice1, LayoutGrid, Gamepad2 } from "lucide-react";
 
-export const InstantGamesSidebar = ({ isOpen, onClose }: any) => {
+export const VirtualSportsSidebar = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   const navigationItems = [
-    { icon: <Home size={20} />, label: "Lobby", path: "/" },
-    { icon: <Gift size={20} />, label: "Bonuses", path: "/" },
-    { icon: <Star size={20} />, label: "Favorites", path: "/" },
+    { icon: <Home size={20} />, label: "Lobby", path: "/lobby" },
   ];
 
   const categories = [
-    { icon: <Flame size={20} />, label: "Top Games", path: "/", count: 129 },
-    { icon: <Dice1 size={20} />, label: "Scratch Games", path: "/", count: 13 },
-    { icon: <Rocket size={20} />, label: "Crash Games", path: "/", count: 88 },
-    { icon: <LayoutGrid size={20} />, label: "Table Games", path: "/", count: 56 },
-    { icon: <Gamepad2 size={20} />, label: "Action Games", path: "/", count: 62 },
+    { icon: "🎮", label: "All games", path: "/" },
+    { icon: "🏇", label: "Horse Racing", path: "/" },
+    { icon: "⚽", label: "Football", path: "/" },
+    { icon: "🏀", label: "Basketball", path: "/" },
+    { icon: "🏒", label: "Ice Hockey", path: "/" },
+    { icon: "🎾", label: "Tennis", path: "/" },
+    { icon: "🐕", label: "Greyhounds", path: "/" },
+    { icon: "🏁", label: "Racing", path: "/" },
+    { icon: "🍀", label: "Games", path: "/" },
   ];
 
   const providers = [
@@ -41,44 +43,41 @@ export const InstantGamesSidebar = ({ isOpen, onClose }: any) => {
 
       {/* Navigation Items */}
       <nav className="space-y-1 mt-20 lg:mt-0 w-full border-b  border-gray-800 p-2">
-        {navigationItems.map((item, index) => (
           <div
-            key={index}
-            className="flex items-center gap-x-3 px-5 py-3 h-14 hover:bg-gray-800 rounded-2xl cursor-pointer"
-            onClick={() => {
-              router.push(item.path);
+            className="flex items-center gap-x-3 px-2 py-2 h-14 rounded-2xl cursor-pointer mt-2"
+            onClick={() =>{
+              router.push("/");
               onClose();
             }}
           >
-            {item.icon}
-            <span className="text-lg">{item.label}</span>
+            <div className="flex items-center px-5 py-4 text-white text-lg font-semibold">
+              <Gamepad2 size={20} className="mr-2" />
+              Fast games
+            </div>
           </div>
-        ))}
       </nav>
 
       {/* Categories Section */}
       <div className="mt-6 px-5 p-2 border-b  border-gray-800">
         <div className="flex justify-between items-center text-gray-400 mb-2">
-          <span className="text-lg font-semibold">Categories</span>
           <span
-            className="text-sm cursor-pointer hover:text-white"
+            className="text-sm cursor-pointer hover:text-white gap-11"
             onClick={() => router.push("/")}
           >
-            All &gt;
+          <span className="text-lg font-semibold">Categories</span>
           </span>
         </div>
         <ul>
           {categories.map((item, index) => (
             <li
               key={index}
-              className="flex justify-between items-center px-5 py-3 hover:bg-gray-800 rounded-2xl cursor-pointer"
+              className="flex justify-between items-center px-2 py-3 hover:bg-gray-800 rounded-2xl cursor-pointer"
               onClick={() => {
                 router.push(item.path);
                 onClose();
               }}
             >
               <span className="flex items-center gap-3">{item.icon} {item.label}</span>
-              <span className="text-gray-500">{item.count}</span>
             </li>
           ))}
         </ul>
