@@ -37,7 +37,7 @@ const CardComponent = () => {
         <div className="flex space-x-6 px-2 py-2">
           {images.map((image, index) => (
             <Link key={index} href={image.link} passHref>
-              <div className="relative cursor-pointer flex-shrink-0 min-w-[350px] max-w-[350px] md:min-w-[600px] md:max-w-[600px]">
+              <div className="relative cursor-pointer flex-shrink-0 min-w-[400px] max-w-[400px] md:min-w-[600px] md:max-w-[600px]">
                 <img
                   src={image.src}
                   alt={image.name}
