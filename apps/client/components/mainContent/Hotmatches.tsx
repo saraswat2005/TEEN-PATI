@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 interface HotMatchesProps {
   Img: string;
   leftText: string;
@@ -8,8 +11,20 @@ interface HotMatchesProps {
 }
 
 export default function Matches({ Img, leftText, rightText, images }: HotMatchesProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = 300; // Adjust scroll distance
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="bg-black p-14 w-full ml-auto">
+    <div className="bg-black p-6 w-full ml-auto relative">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
           <span className="text-white flex text-lg text-center items-center font-semibold">
@@ -22,7 +37,15 @@ export default function Matches({ Img, leftText, rightText, images }: HotMatches
         </a>
       </div>
 
-      <div className="overflow-x-auto scrollbar-hide">
+      {/* Navigation Buttons */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
+      >
+        <ChevronLeft size={24} />
+      </button>
+
+      <div ref={scrollRef} className="overflow-x-auto scrollbar-hide scroll-smooth">
         <div className="flex space-x-4">
           {images.map((image, index) => (
             <Link key={index} href={image.link} passHref>
@@ -50,6 +73,14 @@ export default function Matches({ Img, leftText, rightText, images }: HotMatches
           ))}
         </div>
       </div>
+
+      {/* Right Button */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
+      >
+        <ChevronRight size={24} />
+      </button>
     </div>
   );
 }
@@ -57,11 +88,21 @@ export default function Matches({ Img, leftText, rightText, images }: HotMatches
 
 
 
+export function MatchesForWhite({ leftText, rightText, images }: HotMatchesProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = 300; // Adjust scroll distance
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
-export function MatchesForWhite({ Img, leftText, rightText, images }: HotMatchesProps) {
   return (
-    <div className="bg-[#eff1f3] p-14 w-full ml-auto text-black">
+    <div className="bg-[#eff1f3] p-6 w-full ml-auto text-black relative">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
           <span className="text-black flex text-lg text-center items-center font-semibold">
@@ -74,7 +115,15 @@ export function MatchesForWhite({ Img, leftText, rightText, images }: HotMatches
         </a>
       </div>
 
-      <div className="overflow-x-auto scrollbar-hide">
+      {/* Navigation Buttons */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
+      >
+        <ChevronLeft size={24} />
+      </button>
+
+      <div ref={scrollRef} className="overflow-x-auto scrollbar-hide scroll-smooth">
         <div className="flex space-x-4">
           {images.map((image, index) => (
             <Link key={index} href={image.link} passHref>
@@ -102,6 +151,14 @@ export function MatchesForWhite({ Img, leftText, rightText, images }: HotMatches
           ))}
         </div>
       </div>
+
+      {/* Right Button */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
+      >
+        <ChevronRight size={24} />
+      </button>
     </div>
   );
 }
