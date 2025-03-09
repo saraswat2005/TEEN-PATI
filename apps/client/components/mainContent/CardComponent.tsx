@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -11,10 +11,41 @@ const images = [
 
 const CardComponent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // Function to update screen size state
+  const updateScreenSize = () => {
+    setIsSmallScreen(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    updateScreenSize(); // Initial check
+    window.addEventListener("resize", updateScreenSize);
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
+
+  useEffect(() => {
+    if (!isSmallScreen || !scrollRef.current) return;
+
+    const autoScroll = () => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+      if (scrollLeft + clientWidth >= scrollWidth) {
+        // Reset to start when it reaches the end
+        scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollRef.current.scrollBy({ left: 400, behavior: "smooth" });
+      }
+    };
+
+    const interval = setInterval(autoScroll, 1000); // Auto-scroll every second
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [isSmallScreen]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount = 400; // Adjust scroll distance
+      const scrollAmount = 400;
       scrollRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -29,7 +60,7 @@ const CardComponent = () => {
         onClick={() => scroll("left")}
         className="absolute left-4 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-white text-white cursor-pointer"
       >
-        <ChevronLeft size={24} color="black"/>
+        <ChevronLeft className="w-4 h-4 lg:w-6 lg:h-6" color="black" />
       </button>
 
       {/* Scrollable X Container */}
@@ -54,7 +85,7 @@ const CardComponent = () => {
         onClick={() => scroll("right")}
         className="absolute right-2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-white text-white cursor-pointer"
       >
-        <ChevronRight size={24} color="black"/>
+        <ChevronRight className="w-4 h-4 lg:w-6 lg:h-6" color="black" />
       </button>
     </div>
   );

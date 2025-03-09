@@ -42,14 +42,14 @@ export default function Matches({ Img, leftText, rightText, images }: HotMatches
         onClick={() => scroll("left")}
         className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft className="w-4 h-4 lg:w-6 lg:h-6" />
       </button>
 
       <div ref={scrollRef} className="overflow-x-auto scrollbar-hide scroll-smooth">
         <div className="flex space-x-4">
           {images.map((image, index) => (
             <Link key={index} href={image.link} passHref>
-              <div className="relative w-64 shrink-0 cursor-pointer group">
+              <div className="relative w-52 lg:w-64 shrink-0 cursor-pointer group">
                 {/* Game Image */}
                 <img
                   src={image.src}
@@ -79,7 +79,7 @@ export default function Matches({ Img, leftText, rightText, images }: HotMatches
         onClick={() => scroll("right")}
         className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
       >
-        <ChevronRight size={24} />
+        <ChevronRight className="w-4 h-4 lg:w-6 lg:h-6" />
       </button>
     </div>
   );
@@ -120,14 +120,14 @@ export function MatchesForWhite({ leftText, rightText, images }: HotMatchesProps
         onClick={() => scroll("left")}
         className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft className="w-4 h-4 lg:w-6 lg:h-6" />
       </button>
 
       <div ref={scrollRef} className="overflow-x-auto scrollbar-hide scroll-smooth">
         <div className="flex space-x-4">
           {images.map((image, index) => (
             <Link key={index} href={image.link} passHref>
-              <div className="relative w-64 shrink-0 cursor-pointer group">
+              <div className="relative w-52 lg:w-64 shrink-0 cursor-pointer group">
                 {/* Game Image */}
                 <img
                   src={image.src}
@@ -157,7 +157,7 @@ export function MatchesForWhite({ leftText, rightText, images }: HotMatchesProps
         onClick={() => scroll("right")}
         className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800/70 rounded-full shadow-md hover:bg-gray-900 text-white"
       >
-        <ChevronRight size={24} />
+        <ChevronRight className="w-4 h-4 lg:w-6 lg:h-6" />
       </button>
     </div>
   );
