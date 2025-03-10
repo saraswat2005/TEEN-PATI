@@ -2,6 +2,7 @@ import Footer from "./Footer";
 import CardComponent from "./CardComponent";
 import GameCategories from "./GameCategories";
 import Matches, { MatchesForWhite } from "./Hotmatches";
+import { GifContainer, GifContainerOne, GifContainerTwo } from "./GifContainer";
 
 const games6 = [
   "Promotions",
@@ -38,6 +39,7 @@ export const MainContent = () => {
     <div className="flex flex-col h-screen overflow-x-auto bg-[#eff1f3]">
       <CardComponent />
       <GameCategories games={games6} />
+      <GifContainer/>
       <MatchesForWhite
         Img="/allLive.png"
         leftText="Hot Matches"
@@ -51,6 +53,8 @@ export const MainContent = () => {
         rightText="View All"
         images={images}
       />
+      <GifContainerOne/>
+      <GifContainerTwo/>
       <Footer />
     </div>
   );
